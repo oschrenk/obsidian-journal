@@ -2,6 +2,7 @@ import { moment } from "obsidian";
 import { extractCurrentlocaleData } from "./moment";
 import { PluginSettings } from "../contracts/config.types";
 import { MomentDate } from "../contracts/date.types";
+import { App } from "obsidian";
 
 const CUSTOM_LOCALE = "custom-journal-locale";
 
@@ -40,5 +41,20 @@ export class CalendarHelper {
       },
     });
     moment.locale(currentLocale);
+  }
+
+  hasContext(app: App, id: string): boolean {
+    const path = this.config.contextPath;
+    const file = app.vault.getFileByPath(path);
+    if (!file) {
+      return false;
+    }
+    const fm = app.metadataCache.getFileCache(file)?.frontmatter;
+    if (!fm) {
+      return false;
+    }
+    const defaultId = fm["journals.default.id"];
+
+    return id == defaultId;
   }
 }

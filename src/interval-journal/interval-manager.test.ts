@@ -14,6 +14,7 @@ describe("IntervalManager", () => {
   const calendar = new CalendarHelper({
     firstDayOfWeek: 1,
     firstWeekOfYear: 1,
+    contextPath: "",
   });
 
   describe("10 days increment", () => {
