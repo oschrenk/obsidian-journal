@@ -252,7 +252,14 @@ export class CalendarViewMonth {
   }
 
   private openDate(date: string, garnularity: CalendarGranularity, event: MouseEvent): void {
-    const journals = this.manager.getByType("calendar").filter((j) => j.config[garnularity].enabled);
+    const isNotContextual = event.shiftKey;
+    const journals = this.manager
+      .getByType("calendar")
+      .filter((j) => j.config[garnularity].enabled)
+      .filter((j) => {
+        return isNotContextual || j.hasContext;
+      });
+
     journals.sort((a, b) => a.name.localeCompare(b.name));
     if (journals.length > 0) {
       if (journals.length === 1) {
