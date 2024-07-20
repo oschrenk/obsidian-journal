@@ -6,6 +6,7 @@ export interface PluginSettings {
   calendar: {
     firstDayOfWeek: number;
     firstWeekOfYear: number;
+    contextPath: string;
   };
   calendar_view: {
     leaf: "left" | "right";

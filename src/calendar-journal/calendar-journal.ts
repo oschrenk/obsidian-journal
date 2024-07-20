@@ -15,10 +15,15 @@ import { Journal } from "../contracts/journal.types";
 
 export const calendarCommands = {
   "calendar:open-day": "Open today's note",
+  "calendar:open-day-contextual": "Open today's note (contextual)",
   "calendar:open-week": "Open weekly note",
+  "calendar:open-week-contextual": "Open weekly note (contextual)",
   "calendar:open-month": "Open monthly note",
+  "calendar:open-month-contextual": "Open monthly note (contextual)",
   "calendar:open-quarter": "Open quarterly note",
+  "calendar:open-quarter-contextual": "Open quarterly note (contextual)",
   "calendar:open-year": "Open yearly note",
+  "calendar:open-year-contextual": "Open yearly note (contextual)",
   "calendar:open-next-day": "Open tomorrow's note",
   "calendar:open-next-week": "Open next week note",
   "calendar:open-next-month": "Open next month note",
@@ -76,22 +81,32 @@ export class CalendarJournal implements Journal {
       case "calendar:open-next-day":
       case "calendar:open-prev-day":
         return this.config.day.enabled;
+      case "calendar:open-day-contextual":
+        return this.config.day.enabled && this.calendar.hasContext(this.app, this.config.id);
       case "calendar:open-week":
       case "calendar:open-next-week":
       case "calendar:open-prev-week":
         return this.config.week.enabled;
+      case "calendar:open-week-contextual":
+        return this.config.week.enabled && this.calendar.hasContext(this.app, this.config.id);
       case "calendar:open-month":
       case "calendar:open-next-month":
       case "calendar:open-prev-month":
         return this.config.month.enabled;
+      case "calendar:open-month-contextual":
+        return this.config.month.enabled && this.calendar.hasContext(this.app, this.config.id);
       case "calendar:open-quarter":
       case "calendar:open-next-quarter":
       case "calendar:open-prev-quarter":
         return this.config.quarter.enabled;
+      case "calendar:open-quarter-contextual":
+        return this.config.quarter.enabled && this.calendar.hasContext(this.app, this.config.id);
       case "calendar:open-year":
       case "calendar:open-next-year":
       case "calendar:open-prev-year":
         return this.config.year.enabled;
+      case "calendar:open-year-contextual":
+        return this.config.year.enabled && this.calendar.hasContext(this.app, this.config.id);
     }
     return false;
   }
@@ -101,30 +116,35 @@ export class CalendarJournal implements Journal {
       case "calendar:open-prev-day":
         return this.day.openPrev();
       case "calendar:open-day":
+      case "calendar:open-day-contextual":
         return this.day.open();
       case "calendar:open-next-day":
         return this.day.openNext();
       case "calendar:open-prev-week":
         return this.week.openPrev();
       case "calendar:open-week":
+      case "calendar:open-week-contextual":
         return this.week.open();
       case "calendar:open-next-week":
         return this.week.openNext();
       case "calendar:open-prev-month":
         return this.month.openPrev();
       case "calendar:open-month":
+      case "calendar:open-month-contextual":
         return this.month.open();
       case "calendar:open-next-month":
         return this.month.openNext();
       case "calendar:open-prev-quarter":
         return this.quarter.openPrev();
       case "calendar:open-quarter":
+      case "calendar:open-quarter-contextual":
         return this.quarter.open();
       case "calendar:open-next-quarter":
         return this.quarter.openNext();
       case "calendar:open-prev-year":
         return this.year.openPrev();
       case "calendar:open-year":
+      case "calendar:open-year-contextual":
         return this.year.open();
       case "calendar:open-next-year":
         return this.year.openNext();

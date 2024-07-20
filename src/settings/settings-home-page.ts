@@ -5,6 +5,7 @@ import { SettingsWidget } from "./settings-widget";
 import { JournalConfigManager } from "../config/journal-config-manager";
 import { DeleteJournalModal } from "../ui/delete-journal-modal";
 import { AddNotesJournalModal } from "../ui/add-notes-journal-modal";
+import { TemplateSuggestion } from "./ui/template-suggestion";
 
 export class SettingsHomePage extends SettingsWidget {
   constructor(
@@ -56,6 +57,20 @@ export class SettingsHomePage extends SettingsWidget {
         });
       });
     }
+
+    new Setting(containerEl)
+      .setName("Local Context Configuration")
+      .setDesc("Path to file containing local context frontmatter")
+      .addText((text) => {
+        new TemplateSuggestion(this.app, text.inputEl);
+        text
+          .setValue(this.config.calendar.contextPath)
+          .setPlaceholder("Example: folder 1/folder 2/Local.md")
+          .onChange(() => {
+            this.config.calendar.contextPath = text.getValue();
+            this.save();
+          });
+      });
 
     new Setting(containerEl)
       .setName("Journals")
